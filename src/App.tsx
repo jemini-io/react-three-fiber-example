@@ -1,8 +1,8 @@
 import './App.css';
 // import * as THREE from 'three';
-import { Canvas, useFrame, extend, Object3DNode, useThree, Props, MeshProps } from 'react-three-fiber';
+import { Canvas, useFrame, extend, Object3DNode, useThree, Props, MeshProps, useLoader } from 'react-three-fiber';
 import { useRef } from 'react';
-import { DoubleSide, Fog, Mesh } from 'three';
+import { DoubleSide, Fog, Mesh, TextureLoader, WebGLCubeRenderTarget } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 extend({ OrbitControls })
 
@@ -22,17 +22,31 @@ const OrbitCtrls = () => {
   )
 }
 
+const Background = () => {
+  const texture = useLoader(TextureLoader, '/rocky-hill-hdri.jpeg')
+  const { gl } = useThree()
+  const formatted = new WebGLCubeRenderTarget(
+    texture.image.height
+  ).fromEquirectangularTexture(gl, texture)
+  return (
+    <primitive attach='background' object={formatted.texture} />
+  )
+}
+
 const Box = (props: MeshProps) => {
   const ref = useRef<Mesh>(null);
-  useFrame((state) => {
-    const mesh = ref.current;
-    if (!mesh) return
-    mesh.rotation.y += 0.01
-  });
+  const texture = useLoader(TextureLoader, '/wood-grain-texture.jpeg')
+  // useFrame((state) => {
+  //   const mesh = ref.current;
+  //   if (!mesh) return
+  //   mesh.rotation.y += 0.01
+  //   mesh.rotation.x += 0.01
+  // });
   return (
     <mesh ref={ref} {...props} castShadow receiveShadow>
-      <boxGeometry></boxGeometry>
+      <sphereBufferGeometry args={[1, 100, 100]} />
       <meshPhysicalMaterial
+        map={texture}
       />
     </mesh>
   );
@@ -57,6 +71,7 @@ function App() {
         <OrbitCtrls />
         <ambientLight intensity={0.2} />
         <axesHelper args={[5]} />
+        <Background />
         {/* <fog attach={'fog'} args={['white', 1, 80]} /> */}
         <Bulb position={[0, 3, 0]} />
         <Box position={[0, 1, 0]}></Box>
