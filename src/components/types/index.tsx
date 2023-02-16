@@ -1,5 +1,5 @@
-import { Object3DNode } from 'react-three-fiber';
-import { DragControls } from 'three/examples/jsm/controls/DragControls';
+import { Object3DNode, ThreeEvent } from 'react-three-fiber';
+import { Object3D } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 // Add types to ThreeElements elements so primitives pick up on it
@@ -9,9 +9,12 @@ declare module '@react-three/fiber' {
       OrbitControls,
       typeof OrbitControls
     >;
-    dragControls: Object3DNode<
-      DragControls,
-      typeof DragControls
-    >;
   }
 }
+
+export type CustomThreeEvent = ThreeEvent<PointerEvent> & {
+  object: {
+    active?: boolean
+  } & Object3D<THREE.Event>
+}
+
