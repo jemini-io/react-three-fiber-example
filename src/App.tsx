@@ -1,9 +1,9 @@
 import './App.css';
-// import * as THREE from 'three';
-import { Canvas, useFrame, extend, Object3DNode, useThree, Props, MeshProps, useLoader, ThreeEvent } from 'react-three-fiber';
+import * as THREE from 'three';
 import { useRef } from 'react';
-import { DoubleSide, Fog, Mesh, Object3D, TextureLoader, WebGLCubeRenderTarget } from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { Canvas, extend, MeshProps, ThreeEvent, useFrame, useLoader, useThree } from 'react-three-fiber';
+import { Mesh, Object3D, TextureLoader, WebGLCubeRenderTarget } from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 extend({ OrbitControls })
 
 type CustomEvent = ThreeEvent<PointerEvent> & {
@@ -11,12 +11,6 @@ type CustomEvent = ThreeEvent<PointerEvent> & {
     active?: boolean
   } & Object3D<THREE.Event>
 }
-
-// interface CustomEvent extends ThreeEvent<PointerEvent> {
-//   object: {
-//     active: boolean
-//   }
-// }
 
 const Floor = (props: MeshProps) => {
   return (
@@ -67,6 +61,14 @@ const Box = (props: MeshProps) => {
   }
 
   const handleClick = (e: CustomEvent) => {
+    // deselect
+    if (e.object.active) {
+      scaleDown(GlobalState.activeMesh)
+      GlobalState.activeMesh.active = false
+      delete GlobalState.activeMesh
+      return
+    }
+
     e.object.active = true
     if (GlobalState?.activeMesh?.active) {
       GlobalState.activeMesh.active = false
