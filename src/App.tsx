@@ -1,10 +1,22 @@
 import './App.css';
 // import * as THREE from 'three';
-import { Canvas, useFrame, extend, Object3DNode, useThree, Props, MeshProps, useLoader } from 'react-three-fiber';
+import { Canvas, useFrame, extend, Object3DNode, useThree, Props, MeshProps, useLoader, ThreeEvent } from 'react-three-fiber';
 import { useRef } from 'react';
-import { DoubleSide, Fog, Mesh, TextureLoader, WebGLCubeRenderTarget } from 'three';
+import { DoubleSide, Fog, Mesh, Object3D, TextureLoader, WebGLCubeRenderTarget } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 extend({ OrbitControls })
+
+type CustomEvent = ThreeEvent<PointerEvent> & {
+  object: {
+    active?: boolean
+  } & Object3D<THREE.Event>
+}
+
+// interface CustomEvent extends ThreeEvent<PointerEvent> {
+//   object: {
+//     active: boolean
+//   }
+// }
 
 const Floor = (props: MeshProps) => {
   return (
@@ -36,14 +48,52 @@ const Background = () => {
 const Box = (props: MeshProps) => {
   const ref = useRef<Mesh>(null);
   const texture = useLoader(TextureLoader, '/wood-grain-texture.jpeg')
-  // useFrame((state) => {
-  //   const mesh = ref.current;
-  //   if (!mesh) return
-  //   mesh.rotation.y += 0.01
-  //   mesh.rotation.x += 0.01
-  // });
+  useFrame((state) => {
+    const mesh = ref.current;
+    if (!mesh) return
+    mesh.rotation.y += 0.01
+    mesh.rotation.x += 0.01
+  });
+
+
+  // handle events
+  const handleEnter = (e: CustomEvent) => {
+    scaleUp(e.object)
+  }
+  const handleLeave = (e: CustomEvent) => {
+    if (!e.object.active) {
+      scaleDown(e.object)
+    }
+  }
+
+  const handleClick = (e: CustomEvent) => {
+    e.object.active = true
+    if (GlobalState?.activeMesh?.active) {
+      GlobalState.activeMesh.active = false
+      scaleDown(GlobalState.activeMesh)
+    }
+    GlobalState.activeMesh = e.object
+  }
+
+  const scaleUp = (object: Object3D<THREE.Event>) => {
+    object.scale.x = 1.5;
+    object.scale.y = 1.5;
+    object.scale.z = 1.5;
+  }
+  const scaleDown = (object: Object3D<THREE.Event>) => {
+    object.scale.x = 1;
+    object.scale.y = 1;
+    object.scale.z = 1;
+  }
+
   return (
-    <mesh ref={ref} {...props} castShadow receiveShadow>
+    <mesh ref={ref} {...props}
+      castShadow
+      receiveShadow
+      onPointerDown={handleClick}
+      onPointerEnter={handleEnter}
+      onPointerLeave={handleLeave}
+    >
       <sphereBufferGeometry args={[1, 100, 100]} />
       <meshPhysicalMaterial
         map={texture}
@@ -74,12 +124,18 @@ function App() {
         <Background />
         {/* <fog attach={'fog'} args={['white', 1, 80]} /> */}
         <Bulb position={[0, 3, 0]} />
-        <Box position={[0, 1, 0]}></Box>
+        <Box position={[-4, 1, 0]}></Box>
+        <Box position={[4, 1, 0]}></Box>
         <Floor position={[0, -0.5, 0]} />
 
       </Canvas>
     </div>
   );
+}
+
+
+const GlobalState = {
+  activeMesh: null as any,
 }
 
 export default App;
