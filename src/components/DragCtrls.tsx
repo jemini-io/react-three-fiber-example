@@ -10,7 +10,7 @@ type DragEvent = {
   object: THREE.Mesh,
 }
 
-const DragCtrls = (props: PropsWithChildren) => {
+const DragCtrls = (props: PropsWithChildren & Partial<DragControls>) => {
   const groupRef = useRef<THREE.Group>(null)
   const controlsRef = useRef<DragControls>(null)
 
@@ -31,15 +31,15 @@ const DragCtrls = (props: PropsWithChildren) => {
       orbitControls.enabled = true
     })
     controlsRef.current?.addEventListener('dragstart', (e: any) => {
-      e.object.api.mass.set(0)
+      e.object.api?.mass.set(0)
     })
     controlsRef.current?.addEventListener('dragend', (e: any) => {
-      e.object.api.mass.set(1)
+      e.object.api?.mass.set(1)
     })
     controlsRef.current?.addEventListener('drag', (e: any) => {
       const { object } = e
-      object.api.position.copy(e.object.position)
-      object.api.velocity.set(0, 0, 0)
+      object.api?.position.copy(e.object.position)
+      object.api?.velocity.set(0, 0, 0)
       // console.log(e)
     })
 
@@ -48,6 +48,7 @@ const DragCtrls = (props: PropsWithChildren) => {
   return (
     <group ref={groupRef}>
       <dragControls
+        transformGroup={props.transformGroup}
         ref={controlsRef}
         args={[children, camera, gl.domElement]}
       />

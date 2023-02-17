@@ -7,6 +7,7 @@ import DragCtrls from './components/DragCtrls';
 import Floor from './components/Floor';
 import OrbitCtrls from './components/OrbitCtrls';
 import { Physics } from '@react-three/cannon'
+import Model from './components/Model';
 
 function App() {
   return (
@@ -20,12 +21,16 @@ function App() {
         <Background />
         <Physics>
           {/* <fog attach={'fog'} args={['white', 1, 80]} /> */}
-          <Bulb position={[0, 3, 0]} />
           <DragCtrls>
+            <Bulb position={[0, 3, 0]} />
             <Box position={[-4, 3, 0]}></Box>
-          </DragCtrls>
-          <DragCtrls>
             <Box position={[4, 3, 0]}></Box>
+          </DragCtrls>
+          <DragCtrls transformGroup>
+            <Model key={'1'} path='audi_quattro_sport_stock/scene.gltf' scale={[0.5, 0.5, 0.5]} position={[4, 0, 0]} />
+          </DragCtrls>
+          <DragCtrls transformGroup>
+            <Model key={'2'} path='audi_quattro_sport_stock/scene.gltf' scale={[0.6, 0.6, 0.6]} position={[-4, 0, 0]} />
           </DragCtrls>
           <Floor position={[0, -0.5, 0]} />
         </Physics>
