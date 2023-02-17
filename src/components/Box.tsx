@@ -1,3 +1,4 @@
+import { BoxProps, useBox } from "@react-three/cannon";
 import { useRef } from "react";
 import { MeshProps, useFrame, useLoader } from "react-three-fiber";
 import * as THREE from "three";
@@ -8,16 +9,14 @@ const GlobalState = {
   activeMesh: null as any,
 }
 
-const Box = (props: MeshProps) => {
-  const ref = useRef<THREE.Mesh>(null);
+const Box = (props: BoxProps & MeshProps) => {
+  const [ref, api] = useBox<THREE.Mesh>(() => {
+    return {
+      mass: 1,
+      ...props
+    }
+  })
   const texture = useLoader(THREE.TextureLoader, '/wood-grain-texture.jpeg')
-  useFrame((state) => {
-    const mesh = ref.current;
-    if (!mesh) return
-    mesh.rotation.y += 0.01
-    mesh.rotation.x += 0.01
-  });
-
 
   // handle events
   const handleEnter = (e: CustomThreeEvent) => {
@@ -58,14 +57,17 @@ const Box = (props: MeshProps) => {
   }
 
   return (
-    <mesh ref={ref} {...props}
+    <mesh ref={ref}
+      // @ts-ignore
+      api={api}
+      {...props}
       castShadow
       receiveShadow
       onPointerDown={handleClick}
       onPointerEnter={handleEnter}
       onPointerLeave={handleLeave}
     >
-      <sphereBufferGeometry args={[1, 100, 100]} />
+      <boxGeometry />
       <meshPhysicalMaterial
         map={texture}
       />

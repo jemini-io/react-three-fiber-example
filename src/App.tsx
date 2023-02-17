@@ -5,6 +5,8 @@ import Box from './components/Box';
 import Bulb from './components/Bulb';
 import DragCtrls from './components/DragCtrls';
 import Floor from './components/Floor';
+import OrbitCtrls from './components/OrbitCtrls';
+import { Physics } from '@react-three/cannon'
 
 function App() {
   return (
@@ -12,19 +14,21 @@ function App() {
       <Canvas style={{ background: 'black' }} camera={{ position: [3, 3, 3] }}
         shadows={true}
       >
-        {/* <OrbitCtrls /> */}
+        <OrbitCtrls />
         <ambientLight intensity={0.2} />
         <axesHelper args={[5]} />
         <Background />
-        {/* <fog attach={'fog'} args={['white', 1, 80]} /> */}
-        <Bulb position={[0, 3, 0]} />
-        <DragCtrls>
-          <Box position={[-4, 1, 0]}></Box>
-        </DragCtrls>
-        <DragCtrls>
-          <Box position={[4, 1, 0]}></Box>
-        </DragCtrls>
-        <Floor position={[0, -0.5, 0]} />
+        <Physics>
+          {/* <fog attach={'fog'} args={['white', 1, 80]} /> */}
+          <Bulb position={[0, 3, 0]} />
+          <DragCtrls>
+            <Box position={[-4, 3, 0]}></Box>
+          </DragCtrls>
+          <DragCtrls>
+            <Box position={[4, 3, 0]}></Box>
+          </DragCtrls>
+          <Floor position={[0, -0.5, 0]} />
+        </Physics>
       </Canvas>
     </div>
   );
