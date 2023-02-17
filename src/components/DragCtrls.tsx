@@ -1,14 +1,8 @@
 import { PropsWithChildren, useEffect, useRef, useState } from 'react';
 import { extend, useThree } from 'react-three-fiber';
-import { Mesh } from 'three';
-import { DragControls } from 'three/examples/jsm/controls/DragControls'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { DragControls } from 'three/examples/jsm/controls/DragControls';
 
 extend({ DragControls })
-
-type DragEvent = {
-  object: THREE.Mesh,
-}
 
 const DragCtrls = (props: PropsWithChildren & Partial<DragControls>) => {
   const groupRef = useRef<THREE.Group>(null)
@@ -37,9 +31,8 @@ const DragCtrls = (props: PropsWithChildren & Partial<DragControls>) => {
       e.object.api?.mass.set(1)
     })
     controlsRef.current?.addEventListener('drag', (e: any) => {
-      const { object } = e
-      object.api?.position.copy(e.object.position)
-      object.api?.velocity.set(0, 0, 0)
+      e.object.api?.position.copy(e.object.position)
+      e.object.api?.velocity.set(0, 0, 0)
       // console.log(e)
     })
 

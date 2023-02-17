@@ -6,7 +6,7 @@ const OrbitCtrls = () => {
   const { camera, gl } = useThree()
   return (
     // Some bug where 'enabled' is not listened to so changing it in DragControls doesn't work.
-    <orbitControls args={[camera, gl.domElement]} attach="orbitControls" enabled={false} />
+    <orbitControls args={[camera, gl.domElement]} attach="orbitControls" enabled={true} />
   )
 }
 
