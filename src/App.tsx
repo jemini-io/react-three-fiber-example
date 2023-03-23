@@ -1,8 +1,8 @@
 import { Canvas } from 'react-three-fiber';
 import './App.css';
 import Background from './components/Background';
+import TreeWithFBX from './components/models/TreeWithFBX';
 import OrbitCtrls from './components/OrbitCtrls';
-import TreeWithUVMaps from './components/TreeWithUVMaps';
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
         <ambientLight intensity={0.2} />
         <axesHelper args={[5]} />
         <Background />
-        <TreeWithUVMaps />
+        <TreeWithFBX />
       </Canvas>
     </div>
   );

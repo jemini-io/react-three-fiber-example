@@ -2,7 +2,8 @@ import { useTexture } from "@react-three/drei";
 import { useLoader } from "react-three-fiber"
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 
-function TreeWithUVMaps() {
+// https://free3d.com/3d-model/tree-and-ground-textured-26278.html
+function TreeWithFBX() {
     const objectPath = 'tree/tree 1.obj'
     const texturePath = 'util/uv_grid_opengl.jpg'
 
@@ -24,4 +25,4 @@ function TreeWithUVMaps() {
     )
 }
 
-export default TreeWithUVMaps
+export default TreeWithFBX
