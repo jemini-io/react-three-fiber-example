@@ -1,9 +1,9 @@
 import TreeWithUVMaps from "../components/models/TreeWithUVMaps"
 
 function Forest() {
-    const trees = new Array(2).fill('').map((_, i) => {
-        const offsetFactor = 100
-        const position: [number, number, number] = [i * offsetFactor, 0, i * offsetFactor]
+    const trees = new Array(100).fill('').map((_, i) => {
+        const offsetFactor = 10
+        const position: [number, number, number] = [-i * offsetFactor, 0, -i * offsetFactor]
         return <TreeWithUVMaps key={i} position={position} />
     })
     return (
