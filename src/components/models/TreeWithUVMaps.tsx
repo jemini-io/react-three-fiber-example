@@ -10,7 +10,8 @@ type TreeWithUVMapsProps = {
     position?: [number, number, number]
 }
 function TreeWithUVMaps(props: TreeWithUVMapsProps) {
-    const objectPath = 'tree/tree.obj'
+    const objectPath = '.tmp/1_20.obj'
+    // const objectPath = 'tree/tree.obj'
     const texturePath = 'util/uv_grid_opengl.jpg'
 
     // Must be cloned because the loaders cache the object.

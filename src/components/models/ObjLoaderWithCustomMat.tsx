@@ -4,7 +4,7 @@ import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 
 function ObjLoaderWithCustomMat() {
     // sub in your own files for inspection.
-    // const objectPath = '1_12.obj'
+    // const objectPath = '.tmp/1_20.obj'
     const objectPath = 'tree/tree.obj'
 
     const object = useLoader(OBJLoader, objectPath)

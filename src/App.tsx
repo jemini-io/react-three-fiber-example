@@ -1,9 +1,10 @@
-import { useRef } from 'react';
+import { Stats } from '@react-three/drei';
 import { Canvas } from 'react-three-fiber';
 import './App.css';
 import Background from './components/Background';
 import OrbitCtrls from './components/OrbitCtrls';
-import FlatMapExample from './views/FlatMapExample';
+import Forest from './views/Forest';
+import MergingManyPerfTest from './views/MergingManyPerfTest';
 
 function App() {
   return (
@@ -11,11 +12,13 @@ function App() {
       <Canvas style={{ background: 'black' }} camera={{ position: [3, 3, 3] }}
         shadows={true}
       >
+        <Stats />
         <Background />
         <OrbitCtrls />
-        <ambientLight intensity={0.1} />
         <axesHelper args={[5]} />
-        <FlatMapExample />
+        <ambientLight intensity={0.2} />
+        <MergingManyPerfTest />
+        {/* <Forest /> */}
       </Canvas>
     </div>
   );
