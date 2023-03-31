@@ -10,7 +10,7 @@ type TreeWithUVMapsProps = {
     position?: [number, number, number]
 }
 function TreeWithUVMaps(props: TreeWithUVMapsProps) {
-    const objectPath = 'tree/tree 1.obj'
+    const objectPath = 'tree/tree.obj'
     const texturePath = 'util/uv_grid_opengl.jpg'
 
     // Must be cloned because the loaders cache the object.
@@ -33,9 +33,6 @@ function TreeWithUVMaps(props: TreeWithUVMapsProps) {
 
             // super useful when the obj file is way off center.
             geometry.center()
-            // geometry.scale(10, 10, 10)
-            // some folks have suggested, but no useful yet.
-            // geometry.computeVertexNormals()
 
             // update mesh properties
             mesh.position.x = props.position?.[0] || 0

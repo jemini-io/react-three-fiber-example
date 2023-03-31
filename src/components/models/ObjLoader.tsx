@@ -7,7 +7,7 @@ function ObjLoader() {
     // sub in your own files for inspection.
     // const objectPath = '4_1.obj'
     // const texturePath = '28_23.png'
-    const objectPath = 'tree/tree 1.obj'
+    const objectPath = 'tree/tree.obj'
     const texturePath = 'util/uv_grid_opengl.jpg'
 
     const object = useLoader(OBJLoader, objectPath)
