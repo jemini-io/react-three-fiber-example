@@ -2,6 +2,7 @@ import { useTexture } from "@react-three/drei";
 import { useLoader } from "react-three-fiber"
 import { BufferGeometry, DoubleSide, Mesh, MeshPhongMaterial } from "three";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader"
 
 // Have not figured out how to use the .fbx or texture files
 // for this model.
@@ -10,14 +11,18 @@ type TreeWithUVMapsProps = {
     position?: [number, number, number]
 }
 function TreeWithUVMaps(props: TreeWithUVMapsProps) {
-    const objectPath = '.tmp/1_20.obj'
-    // const objectPath = 'tree/tree.obj'
+    // const objectPath = '.tmp/sms/80_176.glb'
+    // const object = useLoader(GLTFLoader, objectPath)
+    // const objectClone = object.scene.clone();
+    // const objectPath = '.tmp/sms/80_176.obj'
+    const objectPath = 'tree/tree.obj'
+    const object = useLoader(OBJLoader, objectPath)
+    const objectClone = object.clone();
+
     const texturePath = 'util/uv_grid_opengl.jpg'
 
     // Must be cloned because the loaders cache the object.
     // IRL we'd load different objects probably anyway.
-    const object = useLoader(OBJLoader, objectPath)
-    const objectClone = object.clone();
     const texture = useTexture(texturePath)
 
     // this works well when there's a single geometry

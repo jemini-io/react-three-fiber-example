@@ -1,5 +1,5 @@
 import { MergedGeos } from "../components/models/MergedGeos"
-import ObjMultiLoadAndMerge from "../components/models/ObjMultiLoad"
+import ObjMultiLoadAndMerge from "../components/models/ObjMultiLoadAndMerge"
 
 function MergingManyPerfTest() {
   return (

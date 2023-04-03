@@ -37,14 +37,14 @@ export function LevelOfDetailTest() {
     const lod = new LOD()
     geometries.forEach(({ geo, dist, material }) => {
       const mesh = new Mesh(geo, material)
-      // mesh.matrixAutoUpdate = false
+      mesh.matrixAutoUpdate = false
       mesh.castShadow = true;
       mesh.receiveShadow = true;
       // mesh.position.set(...position)
       lod.addLevel(mesh, dist)
       lod.position.set(...position)
-      // lod.updateMatrix()
-      // lod.matrixAutoUpdate = false
+      lod.updateMatrix()
+      lod.matrixAutoUpdate = false
     })
     return <primitive key={i} object={lod} />
   })
