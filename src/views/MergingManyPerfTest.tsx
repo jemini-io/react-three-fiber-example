@@ -1,3 +1,4 @@
+import { MergedGeos } from "../components/models/MergedGeos"
 import ObjMultiLoadAndMerge from "../components/models/ObjMultiLoad"
 
 function MergingManyPerfTest() {
@@ -6,7 +7,8 @@ function MergingManyPerfTest() {
       {/* RGB, XYZ */}
       <directionalLight intensity={1} position={[1, 0, 0]} />
       <directionalLight intensity={1} position={[-1, 0, 0]} />
-      <ObjMultiLoadAndMerge />
+      {/* <ObjMultiLoadAndMerge /> */}
+      <MergedGeos />
     </>
   )
 }

@@ -14,7 +14,7 @@ const Background = () => {
     return new THREE.WebGLCubeRenderTarget(
       texture.image.height
     ).fromEquirectangularTexture(gl, texture)
-  }, [])
+  }, [gl, texture])
 
   return (
     <primitive attach='background' object={formatted.texture} />

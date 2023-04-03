@@ -29,7 +29,7 @@ export const PointCloud = () => {
 
 }
 
-function generateLots(numVertices: number) {
+export function generateLots(numVertices: number) {
   var vertices = [];
   var radius = 1;
   var pi = Math.PI;
