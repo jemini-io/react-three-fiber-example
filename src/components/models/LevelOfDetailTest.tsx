@@ -16,7 +16,7 @@ export function LevelOfDetailTest() {
   const vectors = generateLots(count)
   const countMd = 100000 // half
   const vectorsMd = generateLots(countMd)
-  const countSm = 1000 // 60000 // half
+  const countSm = 10000 // 60000 // half
   const vectorsSm = generateLots(countSm)
 
   const geometries = [
@@ -37,13 +37,14 @@ export function LevelOfDetailTest() {
     const lod = new LOD()
     geometries.forEach(({ geo, dist, material }) => {
       const mesh = new Mesh(geo, material)
+      // mesh.matrixAutoUpdate = false
       mesh.castShadow = true;
       mesh.receiveShadow = true;
       // mesh.position.set(...position)
       lod.addLevel(mesh, dist)
       lod.position.set(...position)
-      lod.updateMatrix()
-      lod.matrixAutoUpdate = false
+      // lod.updateMatrix()
+      // lod.matrixAutoUpdate = false
     })
     return <primitive key={i} object={lod} />
   })

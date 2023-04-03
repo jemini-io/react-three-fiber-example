@@ -7,7 +7,12 @@ const Background = () => {
   const { gl } = useThree()
 
   useFrame(({ gl }) => {
-    console.log('renderer calls', gl.info.render.calls)
+    if (gl.info.render.frame % 120 === 0) {
+      console.log('renderer calls', gl.info.render.calls)
+      console.log('triangles', gl.info.render.triangles);
+      console.log('texture mem', gl.info.memory.textures);
+      console.log('geo mem', gl.info.memory.geometries);
+    }
   })
 
   const formatted = useMemo(() => {

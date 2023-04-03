@@ -9,7 +9,7 @@ import ShowLod from './views/ShowLod';
 function App() {
   return (
     <div style={{ width: '100vw', height: '100vh' }}>
-      <Canvas style={{ background: 'black' }} camera={{ position: [3, 3, 3] }}
+      <Canvas style={{ background: 'black' }} camera={{ position: [3, 3, 3], fov: 50, far: 500 }}
         shadows={true}
       // frameloop={'demand'}
       >

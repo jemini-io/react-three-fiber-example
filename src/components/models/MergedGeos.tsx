@@ -1,7 +1,5 @@
-import { group } from "console";
-import { DoubleSide, InstancedMesh, LOD, Matrix4, Mesh, MeshBasicMaterial, MeshStandardMaterial, Vector3 } from "three";
+import { DoubleSide, InstancedMesh, Matrix4, MeshStandardMaterial, Vector3 } from "three";
 import { ConvexGeometry } from "three/examples/jsm/geometries/ConvexGeometry";
-import { mergeBufferGeometries } from "three/examples/jsm/utils/BufferGeometryUtils";
 import { generateLots } from "../PointMesh";
 
 /**
@@ -19,23 +17,27 @@ export function MergedGeos() {
   const vectors = generateLots(count)
   const countMd = 100000 // half
   const vectorsMd = generateLots(countMd)
-  const countSm = 1000 // 60000 // half
+  const countSm = 10000 // 60000 // half
   const vectorsSm = generateLots(countSm)
 
   // Way more performant but only works when it's the same geometry.
-  // with vectorsMd it's at 33 FPS (now 8fprs??)
+  // with vectorsMd it's at 22 FPS
+  // no difference with 1 obj on screen
   const mesh = new InstancedMesh(new ConvexGeometry(vectorsMd), material, instances.length)
   const matrix4 = new Matrix4()
   instances.forEach((position, i) => {
     matrix4.setPosition(new Vector3(...position))
     mesh.setMatrixAt(i, matrix4)
+    mesh.updateMatrix()
+    mesh.matrixAutoUpdate = false
   })
   mesh.matrixAutoUpdate = false
   return (
     <primitive object={mesh} />
   )
 
-  // With vectorsMd it's at 8 FPS with this approach.
+  // This is the standard 1 mesh per geometry approach.
+  // Gives about 30 FPS with everything on screen, and 60 when only 1 on screen.
   // const geometry = new ConvexGeometry(vectorsMd)
   // const meshes = instances.map((position, i) => {
   //   return <mesh key={i} geometry={geometry} material={material} position={[...position]} />
@@ -46,7 +48,9 @@ export function MergedGeos() {
   //   </group>
   // )
 
-  // Load time is way slower, and runs at 8 FPS with vectorsMd.
+  // Load time is way slower
+  // when 1 object on screen: 25 FPS
+  // when all objects: 25 FPS
   // const geometry = new ConvexGeometry(vectorsMd)
   // const geometries = instances.map((position, i) => {
   //   const clone = geometry.clone()
