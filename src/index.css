@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.stats canvas {
+  width: 100px !important;
+  height: 60px !important;
+  /* aspect-ratio: auto 100 / 80 !important; */
+}
