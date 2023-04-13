@@ -7,6 +7,7 @@ import Forest from './views/Forest';
 import MergingManyPerfTest from './views/MergingManyPerfTest';
 import ShowLod from './views/ShowLod';
 import StressLines from './views/StressLines';
+import IncrementalRender from './views/IncrementalRender';
 
 function App() {
   return (
@@ -19,9 +20,7 @@ function App() {
         <OrbitCtrls />
         <axesHelper args={[5]} />
         <ambientLight intensity={0.2} />
-        {/* <Forest /> */}
-        {/* <ShowLod /> */}
-        <StressLines />
+        <IncrementalRender />
       </Canvas>
     </div>
   );
