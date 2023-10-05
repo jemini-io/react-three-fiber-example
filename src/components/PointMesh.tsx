@@ -6,7 +6,7 @@ extend({ ConvexGeometry })
 
 export const PointCloud = () => {
   // 1 M points
-  const count = 1000 * 1000
+  const count = 100
   const vectors = generateLots(count)
   const pointsScale = 100 / count
 

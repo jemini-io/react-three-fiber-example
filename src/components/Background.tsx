@@ -7,7 +7,7 @@ const Background = () => {
   const { gl } = useThree()
 
   useFrame(({ gl }) => {
-    if (gl.info.render.frame % 120 === 0) {
+    if (gl.info.render.frame % 120 === 0 && false) {
       console.log('renderer calls', gl.info.render.calls)
       console.log('triangles', gl.info.render.triangles);
       console.log('texture mem', gl.info.memory.textures);

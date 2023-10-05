@@ -1,4 +1,4 @@
-import { Line } from '@react-three/drei'
+import { Line, Bvh } from '@react-three/drei'
 import { Vector3 } from 'three'
 
 function StressLines() {
