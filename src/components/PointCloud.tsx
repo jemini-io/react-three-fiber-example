@@ -4,7 +4,7 @@ import { BufferGeometry, Vector3 } from 'three'
 import { ConvexGeometry } from 'three/examples/jsm/geometries/ConvexGeometry'
 extend({ ConvexGeometry })
 
-export const PointCloud = () => {
+export const PointCloud = ({position}: {position: [number, number, number]}) => {
   // 1 M points
   const count = 100
   const vectors = generateLots(count)
@@ -15,12 +15,12 @@ export const PointCloud = () => {
    */
   const pointsGeometry = new BufferGeometry().setFromPoints(vectors)
   return (
-    <group>
+    <group position={position}>
       <points scale={[5, 5, 5]}>
         <pointsMaterial color={'#ff2222'} size={pointsScale} alphaTest={0.5} />
         <primitive object={pointsGeometry} />
       </points>
-      <mesh position={[0, 0, 0]} scale={[5, 5, 5]} >
+      <mesh scale={[5, 5, 5]} >
         <convexGeometry args={[vectors]}> </convexGeometry>
         <meshPhysicalMaterial color={"#8888ff"} />
       </mesh >

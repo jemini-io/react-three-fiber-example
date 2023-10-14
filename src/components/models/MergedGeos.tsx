@@ -1,6 +1,6 @@
 import { DoubleSide, InstancedMesh, Matrix4, MeshStandardMaterial, Vector3 } from "three";
 import { ConvexGeometry } from "three/examples/jsm/geometries/ConvexGeometry";
-import { generateLots } from "../PointMesh";
+import { generateLots } from "../PointCloud";
 
 /**
  * This was done as a performance test and with OBJ files there's no desernable difference.

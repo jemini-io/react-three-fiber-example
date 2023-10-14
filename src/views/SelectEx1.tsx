@@ -12,10 +12,19 @@ import { useEvent } from "react-use";
 import { Object3D, Vector2 } from "three";
 import { SelectionBox } from "three/examples/jsm/interactive/SelectionBox";
 
-const getCoords = (clientX: number, clientY: number) => [
-  (clientX / window.innerWidth) * 2 - 1,
-  -(clientY / window.innerHeight) * 2 + 1,
-];
+const getCoords = (clientX: number, clientY: number, canvas: HTMLCanvasElement) => {
+  const canvasRect = canvas.getBoundingClientRect();
+  const canvasWidth = canvasRect.width;
+  const canvasHeight = canvasRect.height;
+
+  // Calculate the mouse position relative to the canvas
+  const x = ((clientX - canvasRect.left) / canvasWidth) * 2 - 1;
+  const y = -((clientY - canvasRect.top) / canvasHeight) * 2 + 1;
+
+  return [x, y];
+  // [(clientX / window.innerWidth) * 2 - 1,
+  // -(clientY / window.innerHeight) * 2 + 1]
+};
 
 const setSelectedStyle = (collection: any[], selected: boolean) => {
   for (const item of collection) {
@@ -100,9 +109,13 @@ export const Selection: FC<SelectionProps> = ({
   const onPointerDown = useCallback(
     (e: Event) => {
       const event = e as PointerEvent;
+      // console.log('pointerdown', event.clientX, event.clientY, event.offsetX, event.offsetY, event.pageX, event.pageY, event.screenX, event.screenY, event.x, event.y)
+      // console.log('canvas', gl.domElement.width, gl.domElement.height, gl.domElement.clientWidth, gl.domElement.clientHeight)
+      // console.log(gl.domElement.getBoundingClientRect())
+      
       const { clientX, clientY, altKey, ctrlKey, button } = event;
       if (!altKey && !isSelecting && !button) {
-        const [startX, startY] = getCoords(clientX, clientY);
+        const [startX, startY] = getCoords(clientX, clientY, gl.domElement);
         setStart(new Vector2(clientX, clientY));
         setIsSelecting(true);
         if (!ctrlKey) {
@@ -119,7 +132,7 @@ export const Selection: FC<SelectionProps> = ({
     (e: Event) => {
       if (!isSelecting) return;
       const { clientX, clientY } = e as PointerEvent;
-      const [endX, endY] = getCoords(clientX, clientY);
+      const [endX, endY] = getCoords(clientX, clientY, gl.domElement);
       setMouse([clientX, clientY]);
       selectionBox.select();
       setSelectedStyle(selectionBox.collection, false);
@@ -139,7 +152,7 @@ export const Selection: FC<SelectionProps> = ({
       if (isSelecting || !button) {
         setIsSelecting(false);
 
-        const [endX, endY] = getCoords(clientX, clientY);
+        const [endX, endY] = getCoords(clientX, clientY, gl.domElement);
         selectionBox.endPoint.set(endX, endY, 0.5);
         const curSelected = selectionBox.select();
 
