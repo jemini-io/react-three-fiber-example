@@ -1,6 +1,6 @@
 import { BoxProps, useBox } from "@react-three/cannon";
 import { useRef } from "react";
-import { MeshProps, useFrame, useLoader } from "react-three-fiber";
+import { MeshProps, useFrame, useLoader } from "@react-three/fiber";
 import * as THREE from "three";
 import { CustomThreeEvent } from "./types";
 

@@ -1,5 +1,5 @@
 import { useTexture } from "@react-three/drei";
-import { useLoader } from "react-three-fiber"
+import { useLoader } from "@react-three/fiber"
 import { BufferGeometry, DoubleSide, Mesh, MeshPhongMaterial } from "three";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader"

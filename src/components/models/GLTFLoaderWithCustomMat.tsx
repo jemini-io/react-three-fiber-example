@@ -1,4 +1,4 @@
-import { useLoader } from "react-three-fiber";
+import { useLoader } from "@react-three/fiber";
 import { BufferGeometry, Mesh, MeshStandardMaterial } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 

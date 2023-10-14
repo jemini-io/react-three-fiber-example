@@ -1,4 +1,4 @@
-import { Object3DNode } from 'react-three-fiber';
+import { Object3DNode } from '@react-three/fiber';
 import { DragControls } from 'three/examples/jsm/controls/DragControls';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 

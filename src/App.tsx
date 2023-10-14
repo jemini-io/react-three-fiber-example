@@ -1,5 +1,5 @@
 import { Stats } from '@react-three/drei';
-import { Canvas } from 'react-three-fiber';
+import { Canvas } from '@react-three/fiber';
 import './App.css';
 import Background from './components/Background';
 import OrbitCtrls from './components/OrbitCtrls';

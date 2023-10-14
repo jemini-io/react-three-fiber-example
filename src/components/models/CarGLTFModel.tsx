@@ -1,6 +1,6 @@
 import { Triplet, useBox } from "@react-three/cannon"
 import { PropsWithChildren, useMemo } from "react"
-import { Object3DProps, useLoader } from "react-three-fiber"
+import { Object3DProps, useLoader } from "@react-three/fiber"
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader"
 
 export type ModelProps = {

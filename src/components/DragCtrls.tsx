@@ -1,5 +1,5 @@
 import { PropsWithChildren, useEffect, useRef, useState } from 'react';
-import { extend, useThree } from 'react-three-fiber';
+import { extend, useThree } from '@react-three/fiber';
 import { DragControls } from 'three/examples/jsm/controls/DragControls';
 
 extend({ DragControls })

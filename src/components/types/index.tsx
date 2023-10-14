@@ -1,4 +1,4 @@
-import { Object3DNode, ThreeEvent } from 'react-three-fiber';
+import { Object3DNode, ThreeEvent } from '@react-three/fiber';
 import { Object3D } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { ConvexGeometry } from 'three/examples/jsm/geometries/ConvexGeometry';

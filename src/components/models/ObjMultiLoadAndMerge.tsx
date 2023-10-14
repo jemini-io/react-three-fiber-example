@@ -1,4 +1,4 @@
-import { useLoader } from "react-three-fiber";
+import { useLoader } from "@react-three/fiber";
 import { BufferGeometry, DoubleSide, Mesh, MeshStandardMaterial } from "three";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 import { mergeBufferGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils';

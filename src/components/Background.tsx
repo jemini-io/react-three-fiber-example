@@ -1,5 +1,5 @@
 import { useMemo } from "react"
-import { useFrame, useLoader, useThree } from "react-three-fiber"
+import { useFrame, useLoader, useThree } from "@react-three/fiber"
 import * as THREE from "three"
 
 const Background = () => {

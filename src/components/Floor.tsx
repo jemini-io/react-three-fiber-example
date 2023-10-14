@@ -1,5 +1,5 @@
 import { BodyProps, BoxProps, useBox } from "@react-three/cannon"
-import { MeshProps, NodeProps } from "react-three-fiber"
+import { MeshProps, NodeProps } from "@react-three/fiber"
 
 const Floor = (props: BoxProps & MeshProps) => {
   const dimensions: any = [20, 1, 10]
