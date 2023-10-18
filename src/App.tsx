@@ -7,21 +7,24 @@ import Forest from './views/Forest';
 import MergingManyPerfTest from './views/MergingManyPerfTest';
 import ShowLod from './views/ShowLod';
 import StressLines from './views/StressLines';
+import { LotsOfBoxes } from './views/LotsOfBoxes';
+import { CustomCam } from './components/CustomCam';
 
 function App() {
   return (
     <div style={{ width: '100vw', height: '100vh' }}>
-      <Canvas style={{ background: 'black' }} camera={{ position: [30, 30, 30], fov: 50, far: 2000 }}
+      <Canvas style={{ background: 'black' }}
         shadows={true}
+        camera={{ position: [25, 25, 25] }}
       >
-        <Stats className='stats' />
+        {/* <CustomCam /> */}
+        {/* <Stats className='stats' /> */}
         <Background />
         <OrbitCtrls />
         <axesHelper args={[5]} />
         <ambientLight intensity={0.2} />
-        {/* <Forest /> */}
-        {/* <ShowLod /> */}
-        <StressLines />
+        <LotsOfBoxes />
+
       </Canvas>
     </div>
   );
