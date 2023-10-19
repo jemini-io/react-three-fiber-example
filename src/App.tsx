@@ -15,11 +15,12 @@ function App() {
     <div style={{ width: '100vw', height: '100vh' }}>
       <Canvas style={{ background: 'black' }}
         shadows={true}
-        camera={{ position: [25, 25, 25] }}
+      // camera={{ position: [25, 25, 25] }}
       >
-        {/* <CustomCam /> */}
+        <CustomCam />
         {/* <Stats className='stats' /> */}
         <Background />
+        <ShowLod />
         <OrbitCtrls />
         <axesHelper args={[5]} />
         <ambientLight intensity={0.2} />
