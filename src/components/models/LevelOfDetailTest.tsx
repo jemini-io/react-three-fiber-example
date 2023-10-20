@@ -8,7 +8,7 @@ import { generateLots } from "../PointMesh";
 export function LevelOfDetailTest() {
   const instances = new Array(50).fill('').map((_, i) => {
     const offsetFactor = 10
-    const position: [number, number, number] = [-i * offsetFactor, 0, -i * offsetFactor]
+    const position: [number, number, number] = [-i * offsetFactor, 0, 0]
     return position
   })
 

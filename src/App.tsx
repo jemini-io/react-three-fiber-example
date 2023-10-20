@@ -9,6 +9,7 @@ import ShowLod from './views/ShowLod';
 import StressLines from './views/StressLines';
 import { LotsOfBoxes } from './views/LotsOfBoxes';
 import { CustomCam } from './components/CustomCam';
+import { useState } from 'react';
 
 function App() {
   return (
