@@ -66,6 +66,7 @@ export const CustomCam = () => {
       // TODO: play with moveDistance and camera.position
       // right now it's 10% change of the top value and
       // +/- 1 unit in the direction of the camera.
+      // TODO: it seems like we should move both these values linearly
       const viewPortResizePercent = 0.1;
       const cameraMoveUnit = direction * 1;
       const moveDistance = oCam.top * (direction * viewPortResizePercent)

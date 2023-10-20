@@ -8,7 +8,7 @@ const OrbitCtrls = ({ target }: any) => {
     // Some bug where 'enabled' is not listened to so changing it in DragControls doesn't work.
     <OrbitControls
       enabled={true}
-      enableRotate={false}
+      enableRotate={true}
       enableZoom={false}
       enableDamping={false}
       camera={camera}
