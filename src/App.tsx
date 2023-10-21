@@ -21,7 +21,7 @@ function App() {
         <CustomCam />
         {/* <Stats className='stats' /> */}
         <Background />
-        <ShowLod />
+        {/* <ShowLod /> */}
         <OrbitCtrls />
         <axesHelper args={[5]} />
         <ambientLight intensity={0.2} />

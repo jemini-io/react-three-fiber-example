@@ -27,6 +27,7 @@ export const CustomCam = () => {
     oCam.right = newVewPort * aspect
     oCam.top = newVewPort
     oCam.bottom = -newVewPort
+    console.log('aspect', aspect)
   }
 
   /**
@@ -50,29 +51,57 @@ export const CustomCam = () => {
       }
     })
     sceneBB.getSize(dims)
-    setMaxDim(Math.max(...dims.toArray()))
+    const maxDim = Math.max(...dims.toArray())
+    setMaxDim(maxDim)
+    return maxDim
   }
-
-  // I'd like to run these once when the scene loads but this approach
-  // isn't working. It's just here for reference.
-  useEffect(() => {
-    resizeViewport(gl.domElement.width, gl.domElement.height)
-    // arbitrary hook to update the maxDimension of the scene.
-    computeSceneBoundingBox()
-  }, [])
 
   /**
    * This will resize the viewport when the window is resized.
    */
   useEvent('resize', () => {
     resizeViewport(gl.domElement.width, gl.domElement.height)
-    // arbitrary hook to update the maxDimension of the scene.
-    computeSceneBoundingBox()
   })
 
   // Custom zoom handler
   useEvent('wheel', (event: WheelEvent) => {
     setScrollDelta(event.deltaY)
+  })
+  useEvent('keyup', (event: KeyboardEvent) => {
+    if (event.key === 'a') {
+      console.log('resetting scene...')
+      const maxDim = computeSceneBoundingBox()
+      // resizeViewport(gl.domElement.width, gl.domElement.height)
+      // camera.updateProjectionMatrix()
+      // calc and apply defaults
+      // try to view whole scene from target and max dimension
+
+      const oCam = camera as OrthographicCameraType
+      const oCtrls = controls as OrbitControls
+
+      const defaultTarget = new Vector3(0, 0, 0)
+      const defaultNormal = new Vector3(1, 1, 1).normalize()
+      const defaultPosition = defaultTarget.clone().add(defaultNormal.clone().multiplyScalar(maxDim))
+
+      const distanceToTarget = defaultPosition.distanceTo(defaultTarget)
+      console.log(distanceToTarget)
+      const aspect = gl.domElement.width / gl.domElement.height
+      // let top = Math.sqrt(distanceToTarget * aspect)
+      let top = maxDim
+
+      oCam.right = top * aspect
+      oCam.left = -top * aspect
+      oCam.top = top
+      oCam.bottom = -top
+      oCam.far = 500000//maxDim * 2
+      oCam.zoom = 1
+
+      camera.position.copy(defaultPosition)
+      oCtrls.target.copy(defaultTarget)
+      camera.updateProjectionMatrix()
+      console.log('distance', distanceToTarget, 'maxDim', maxDim, 'aspect', aspect)
+      console.log('initial top and right', top, top * aspect)
+    }
   })
 
   useFrame(() => {
@@ -86,6 +115,7 @@ export const CustomCam = () => {
 
       // Set reasonable limits, otherwise we end up in the negative
       const distanceToTarget = oCtrls.target.distanceTo(camera.position)
+      console.log('distance', distanceToTarget, 'maxDim', maxDim)
       // Set max custom zoom
       if (distanceToTarget < 5) {
         // Can zoom in more once you hit the max camera position
@@ -99,9 +129,9 @@ export const CustomCam = () => {
         }
       }
       // Set min custom zoom
-      if (distanceToTarget > maxDim && direction > 0) {
-        return
-      }
+      // if (distanceToTarget > maxDim && direction > 0) {
+      //   return
+      // }
 
       // Set a viewport zoom factor
       const viewPortResizePercent = 0.2;
@@ -114,27 +144,26 @@ export const CustomCam = () => {
       // set the position is from the target, in that direction
       // based on the viewport size
       const flippedDirNormal = camera.getWorldDirection(new Vector3()).normalize().multiplyScalar(-1)
-      const distanceFactor = oCam.top * oCam.right;
+      const distanceFactor = oCam.top * oCam.right / (gl.domElement.width / gl.domElement.height);
       const newPosition = oCtrls.target.clone().add(flippedDirNormal.multiplyScalar(distanceFactor))
       camera.position.copy(newPosition)
+      console.log('new top and right', oCam.top, oCam.right)
     }
-
-
   })
 
   return (
     <OrthographicCamera
       // <PerspectiveCamera
       makeDefault
-      position={[15, 15, 15]}
+      position={[1, 1, 1]}
       zoom={1}
       manual
       near={1}
-      far={5000}
-      left={5}
-      right={-5}
-      top={5}
-      bottom={-5}
+      far={1}
+      left={1}
+      right={-1}
+      top={1}
+      bottom={-1}
     />
   )
 }
